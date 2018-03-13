@@ -1,5 +1,8 @@
-<span class="mmi mmi{{roman}}">
+<span class="mmi mmi{{roman}}" [ngStyle]="addStyle">
   <span class="roman">
     <strong>{{roman}}</strong>
   </span>
+
+  <ng-content>
+  </ng-content>
 </span>

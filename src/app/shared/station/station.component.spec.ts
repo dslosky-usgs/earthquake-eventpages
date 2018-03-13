@@ -18,7 +18,7 @@ describe('StationComponent', () => {
       declarations: [
         StationComponent,
 
-        MockComponent({selector: 'shared-mmi', inputs: ['intensity']}) ]
+        MockComponent({selector: 'shared-mmi', inputs: ['intensity', 'addStyle']}) ]
     })
     .compileComponents();
   }));

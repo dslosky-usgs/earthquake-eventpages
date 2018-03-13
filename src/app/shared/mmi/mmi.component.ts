@@ -20,6 +20,8 @@ export class MmiComponent implements OnInit {
     this.roman = MmiComponent.MMI_ROMAN[mmi];
   }
 
+  @Input() addStyle: any = {};
+
   get intensity() {
     return this._intensity;
   }
