@@ -20,21 +20,26 @@ export class MetadataService {
    * @param product shakemap product json
    */
   getMetadata (product: any): void {
-    if (product == null) {
-      this.metadata$.next(null);
+    if ((product == null) || (
+          !product.contents['download/info.json'])) {
+      this.onMetadata(null);
       return;
     }
-    const metadata = product.contents['download/info.json'];
 
+    const metadata = product.contents['download/info.json'];
     this.httpClient.get(metadata.url).pipe(
-      catchError(this.handleError())
-    ).subscribe((data: any) => {
-      this.handleMetadata(data);
-    }, (e) => {
-      /*  Subscribe errored */
-      this.error = e;
-      this.metadata$.next(null);
-    });
+        catchError(this.handleError())
+      )
+      .subscribe((data: any) => {
+        try {
+          this.onMetadata(data);
+        } catch (e) {
+
+          /* Processing error */
+          this.error = e;
+          this.metadata$.next(null);
+        }
+      });
   }
 
   /**
@@ -42,7 +47,7 @@ export class MetadataService {
    *
    * @param metadata json object
    */
-  handleMetadata(metadata) {
+  onMetadata (metadata) {
     metadata = this.translate(metadata);
     this.metadata$.next(metadata);
   }
@@ -52,22 +57,23 @@ export class MetadataService {
    *
    * @param metadata object
    */
-  translate(metadata) {
+  translate (metadata) {
     // Which objects are not arrays in ShakeMap V3
     const needsTrans = {'output': ['ground_motions', 'map_information'],
                         'processing': ['ground_motion_modules', 'roi']};
 
     for (const dataType of Object.keys(needsTrans)) {
       for (const each of needsTrans[dataType]) {
-        // Convert non-array objects
+
+        // Convert non-array objects that need translation
         if (metadata &&
               metadata[dataType] &&
               metadata[dataType][each] &&
               (!(metadata[dataType][each] instanceof Array))) {
 
           metadata[dataType][each] = this.obj2Arr(metadata[dataType][each]);
-
         }
+
       }
     }
 
@@ -80,7 +86,7 @@ export class MetadataService {
    *
    * @param obj javascript object
    */
-  obj2Arr(obj) {
+  obj2Arr (obj) {
     const arr = [];
     for (const item_id of Object.keys(obj)) {
       const item = obj[item_id];
