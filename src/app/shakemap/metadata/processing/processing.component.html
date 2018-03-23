@@ -37,7 +37,6 @@
               {{ module.type }}
             </ng-template>
 
-
           </mat-cell>
         </ng-container>
 
@@ -46,9 +45,7 @@
             Module
           </mat-header-cell>
           <mat-cell *matCellDef="let module">
-
             {{ module.module }}
-
           </mat-cell>
         </ng-container>
 
@@ -57,9 +54,7 @@
             Reference
           </mat-header-cell>
           <mat-cell *matCellDef="let module">
-
             {{ module.reference }}
-
           </mat-cell>
         </ng-container>
 
@@ -78,65 +73,65 @@
     <ng-template matExpansionPanelContent>
       <dl class="description-table" *ngIf="smProcessing.miscellaneous as miscellaneous">
 
-          <dt>Max magnitude to compute bias</dt>
-          <dd *ngIf="miscellaneous.bias_max_mag as biasMaxMag;
-                        else missingData">
-            {{ biasMaxMag }}
-          </dd>
+        <dt>Max magnitude to compute bias</dt>
+        <dd *ngIf="miscellaneous.bias_max_mag as biasMaxMag;
+                      else missingData">
+          {{ biasMaxMag }}
+        </dd>
 
-          <dt>Maximum distance to include station in bias</dt>
-          <dd *ngIf="miscellaneous.bias_max_range as biasMaxRange;
-                        else missingData">
-            {{ biasMaxRange }}
-          </dd>
+        <dt>Maximum distance to include station in bias</dt>
+        <dd *ngIf="miscellaneous.bias_max_range as biasMaxRange;
+                      else missingData">
+          {{ biasMaxRange }}
+        </dd>
 
-          <dt>Use log amp to compute bias</dt>
-          <dd *ngIf="miscellaneous.bias_log_amp as biasLogAmp;
-                        else missingData">
-            {{ biasLogAmp }}
-          </dd>
+        <dt>Use log amp to compute bias</dt>
+        <dd *ngIf="miscellaneous.bias_log_amp as biasLogAmp;
+                      else missingData">
+          {{ biasLogAmp }}
+        </dd>
 
-          <dt>Max allowed bias</dt>
-          <dd *ngIf="miscellaneous.bias_max_bias as biasMaxBias;
-                        else missingData">
-            {{ biasMaxBias }}
-          </dd>
+        <dt>Max allowed bias</dt>
+        <dd *ngIf="miscellaneous.bias_max_bias as biasMaxBias;
+                      else missingData">
+          {{ biasMaxBias }}
+        </dd>
 
-          <dt>Use log amp to compute bias</dt>
-          <dd *ngIf="miscellaneous.bias_min_bias as biasMinBias;
-                        else missingData">
-            {{ biasMinBias }}
-          </dd>
+        <dt>Use log amp to compute bias</dt>
+        <dd *ngIf="miscellaneous.bias_min_bias as biasMinBias;
+                      else missingData">
+          {{ biasMinBias }}
+        </dd>
 
-          <dt>Min # of stations necessary to compute bias</dt>
-          <dd *ngIf="miscellaneous.bias_min_stations as biasMinStations;
-                        else missingData">
-            {{ biasMinStations }}
-          </dd>
+        <dt>Min # of stations necessary to compute bias</dt>
+        <dd *ngIf="miscellaneous.bias_min_stations as biasMinStations;
+                      else missingData">
+          {{ biasMinStations }}
+        </dd>
 
-          <dt>Norm of the bias</dt>
-          <dd *ngIf="miscellaneous.bias_norm as biasNorm;
-                        else missingData">
-            {{ biasNorm }}
-          </dd>
+        <dt>Norm of the bias</dt>
+        <dd *ngIf="miscellaneous.bias_norm as biasNorm;
+                      else missingData">
+          {{ biasNorm }}
+        </dd>
 
-          <dt>Median distance used</dt>
-          <dd *ngIf="miscellaneous.median_dist as medDist;
-                        else missingData">
-            {{ medDist }}
-          </dd>
+        <dt>Median distance used</dt>
+        <dd *ngIf="miscellaneous.median_dist as medDist;
+                      else missingData">
+          {{ medDist }}
+        </dd>
 
-          <dt>Outlier level (# of std dev)</dt>
-          <dd *ngIf="miscellaneous.outlier_deviation_level as devLevel;
-                        else missingData">
-            {{ devLevel }}
-          </dd>
+        <dt>Outlier level (# of std dev)</dt>
+        <dd *ngIf="miscellaneous.outlier_deviation_level as devLevel;
+                      else missingData">
+          {{ devLevel }}
+        </dd>
 
-          <dt>Max magnitude to flag outliers</dt>
-          <dd *ngIf="miscellaneous.outlier_max_mag as maxMag;
-                        else missingData">
-            {{ maxMag }}
-          </dd>
+        <dt>Max magnitude to flag outliers</dt>
+        <dd *ngIf="miscellaneous.outlier_max_mag as maxMag;
+                      else missingData">
+          {{ maxMag }}
+        </dd>
 
       </dl>
     </ng-template>
@@ -153,23 +148,23 @@
     <ng-template matExpansionPanelContent>
 
       <dl class="description-table" *ngIf="smProcessing.shakemap_versions as versions">
-          <dt>Code</dt>
-          <dd *ngIf="versions.shakemap_revision as smRev;
-                        else missingData">
-            {{ smRev }}
-          </dd>
+        <dt>Code</dt>
+        <dd *ngIf="versions.shakemap_revision as smRev;
+                      else missingData">
+          {{ smRev }}
+        </dd>
 
-          <dt>Github commit</dt>
-          <dd *ngIf="versions.shakemap_revision_id as smRevId;
-                        else missingData">
-            {{ smRevId }}
-          </dd>
+        <dt>Github commit</dt>
+        <dd *ngIf="versions.shakemap_revision_id as smRevId;
+                      else missingData">
+          {{ smRevId }}
+        </dd>
 
-          <dt>Map version</dt>
-          <dd *ngIf="versions.map_version as version;
-                        else missingData">
-            {{ version }}
-          </dd>
+        <dt>Map version</dt>
+        <dd *ngIf="versions.map_version as version;
+                      else missingData">
+          {{ version }}
+        </dd>
 
         <dt>Date</dt>
         <dd *ngIf="versions.process_time as time;
@@ -180,7 +175,6 @@
       </dl>
     </ng-template>
   </mat-expansion-panel>
-
 
   <mat-expansion-panel>
     <mat-expansion-panel-header>
@@ -198,14 +192,11 @@
             {{ vs30 }}
           </dd>
 
-
           <dt>Site correction applied</dt>
           <dd *ngIf="siteResp.site_correction as site;
                         else missingData">
             {{ site }}
           </dd>
-
-
       </dl>
 
     </ng-template>
@@ -245,9 +236,7 @@
             ROI
           </mat-header-cell>
           <mat-cell *matCellDef="let roi">
-            
             {{ roi.roi }}
-
           </mat-cell>
         </ng-container>
 
@@ -256,9 +245,7 @@
             Observation Decay
           </mat-header-cell>
           <mat-cell *matCellDef="let roi">
-
             {{ roi.decay }}
-            
           </mat-cell>
         </ng-container>
 

@@ -7,7 +7,6 @@
     </mat-expansion-panel-header>
 
     <ng-template matExpansionPanelContent>
-
       <mat-table [dataSource]="smOutput.ground_motions">
         <mat-header-row *matHeaderRowDef="headers.groundMotions"></mat-header-row>
         <mat-row *matRowDef="let myRowData; columns: headers.groundMotions"></mat-row>
@@ -37,7 +36,7 @@
             <ng-template #noName>
               {{ groundMotion.type }}
             </ng-template>
-            
+
           </mat-cell>
         </ng-container>
 
@@ -46,9 +45,7 @@
             Max Value in Grid
           </mat-header-cell>
           <mat-cell *matCellDef="let groundMotion">
-
             {{ groundMotion.max_grid | sharedUnits:groundMotion.units }}
-
           </mat-cell>
         </ng-container>
 
@@ -57,9 +54,7 @@
             Max Value on Land
           </mat-header-cell>
           <mat-cell *matCellDef="let groundMotion">
-
             {{ groundMotion.max | sharedUnits:groundMotion.units }}
-
           </mat-cell>
         </ng-container>
 
@@ -68,9 +63,7 @@
             Bias
           </mat-header-cell>
           <mat-cell *matCellDef="let groundMotion">
-
             {{ groundMotion.bias }}
-
           </mat-cell>
         </ng-container>
 
@@ -87,7 +80,6 @@
     </mat-expansion-panel-header>
 
     <ng-template matExpansionPanelContent>
-
       <mat-table [dataSource]="smOutput.map_information">
         <mat-header-row *matHeaderRowDef="headers.mapInformation"></mat-header-row>
         <mat-row *matRowDef="let myRowData; columns: headers.mapInformation"></mat-row>
@@ -100,9 +92,7 @@
                       [class.mat-cell]="false"
                       class="mat-header-cell"
                       *matCellDef="let mapInfo">
-
             {{ names.mapInformation[mapInfo.type] }}
-
           </mat-cell>
         </ng-container>
 
@@ -111,9 +101,7 @@
             Latitude
           </mat-header-cell>
           <mat-cell *matCellDef="let mapInfo">
-
             {{ mapInfo.latitude | sharedUnits:mapInfo.units }}
-
           </mat-cell>
         </ng-container>
 
@@ -122,9 +110,7 @@
             Longitude
           </mat-header-cell>
           <mat-cell *matCellDef="let mapInfo">
-
             {{ mapInfo.longitude | sharedUnits:mapInfo.units }}
-
           </mat-cell>
         </ng-container>
 
@@ -141,7 +127,6 @@
     </mat-expansion-panel-header>
 
     <ng-template matExpansionPanelContent>
-
       <dl class="description-table" *ngIf="smOutput.uncertainty as uncertainty">
 
         <dt>Mean of map uncertainty</dt>
@@ -169,7 +154,6 @@
         </dd>
 
       </dl>
-
     </ng-template>
   </mat-expansion-panel>
 
