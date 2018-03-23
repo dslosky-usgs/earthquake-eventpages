@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-
+import { FormatterService } from '../../../core/formatter.service';
 @Component({
   selector: 'shakemap-output',
   templateUrl: './output.component.html',
@@ -50,7 +50,7 @@ export class OutputComponent implements OnInit {
     'mapInformation': ['type', 'lat', 'lon']
   };
 
-  constructor () { }
+  constructor (public formatter: FormatterService) { }
   @Input () smOutput: any;
 
   ngOnInit () {

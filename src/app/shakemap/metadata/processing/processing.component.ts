@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { FormatterService } from '../../../core/formatter.service';
 
 @Component({
   selector: 'shakemap-processing',
@@ -35,7 +36,7 @@ export class ProcessingComponent implements OnInit {
     'roi': ['type', 'roi', 'observation_decay']
   };
 
-  constructor () { }
+  constructor (public formatter: FormatterService) { }
   @Input() smProcessing: any;
 
   ngOnInit () {
