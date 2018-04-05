@@ -11,7 +11,7 @@ export class EpicenterOverlay implements Overlay {
 
   public bounds: Array<any>;
   public layer: L.Layer;
-  public legend: string = null;
+  public legend = '<img class="legend-image" src="assets/legend-epicenter.png">';
 
   constructor (product: any) {
     const properties = product ? product.properties : {};

@@ -1,0 +1,57 @@
+
+<div class="control" 
+      [ngClass]="{'collapsed': controlCollapsed}" 
+      (dblclick)="$event.stopPropagation();">
+
+  <div class="collapsed-control" *ngIf="controlCollapsed" (click)="controlCollapsed=false">
+    <div class="control-image">
+      <img src="{{ layersImg }}">
+    </div>
+  </div>
+
+  <div class="open" *ngIf="!controlCollapsed">
+    <div class="close">
+      <div class="close-icon" (click)="controlCollapsed=true">
+        <mat-icon>close</mat-icon>
+      </div>
+    </div>
+
+    <div class="items">
+      <p *ngFor="let overlay of _overlays" 
+          (click)="toggleOverlay(overlay);"
+          class="layer-item">
+        <input type="checkbox" [checked]="overlay.enabled">
+        {{ overlay.title }}
+      </p>
+    </div>
+  </div>
+
+</div>
+
+<!-- Clear the float to let legend sit under control -->
+<br style="clear:both" />
+
+<div class="legend control" 
+        [ngClass]="{'collapsed': legendCollapsed}" 
+        (dblclick)="$event.stopPropagation();">
+
+  <div class="collapsed-control" *ngIf="legendCollapsed" (click)="toggleLegend()">
+    <div class="control-image">
+      <mat-icon class="key">vpn_key</mat-icon>
+    </div>
+  </div>
+
+  <div class="open" *ngIf="!legendCollapsed">
+    <div class="close">
+      <div class="close-icon" (click)="toggleLegend()">
+        <mat-icon>close</mat-icon>
+      </div>
+    </div>
+
+    <div class="items">
+        <div class="legend-markup" 
+            *ngFor="let markup of legend"
+            [innerHTML]="markup"></div>
+    </div>
+  </div>
+</div>

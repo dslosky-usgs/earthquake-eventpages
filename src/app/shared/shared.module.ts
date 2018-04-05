@@ -33,6 +33,7 @@ import { DateTimePipe } from './date-time.pipe';
 import { GetProductPipe } from './get-product.pipe';
 import { RegionInfoOverlaysPipe } from './region-info-overlays.pipe';
 import { InteractiveMapOverlaysPipe } from './interactive-map-overlays.pipe';
+import { MapControlComponent } from './map-control/map-control.component';
 
 
 @NgModule({
@@ -70,7 +71,8 @@ import { InteractiveMapOverlaysPipe } from './interactive-map-overlays.pipe';
     DateTimePipe,
     GetProductPipe,
     InteractiveMapOverlaysPipe,
-    RegionInfoOverlaysPipe
+    RegionInfoOverlaysPipe,
+    MapControlComponent
   ],
   exports: [
     AttributionComponent,

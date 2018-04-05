@@ -8,3 +8,14 @@ div {
 .noninteractive {
   pointer-events: none;
 }
+
+.map-control {
+    z-index: 501;
+    text-align: center;
+    position: relative;
+    margin: 0;
+    height: max-content;
+    width: max-content;
+    left: 100%;
+    transform: translateX(-100%);
+}

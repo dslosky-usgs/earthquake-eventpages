@@ -193,11 +193,13 @@ export class MapComponent implements AfterViewInit, OnInit {
       return;
     }
 
+/*
     if (this.showLayersControl && this.interactive === true) {
       this.map.addControl(this.layersControl);
     } else {
       this.map.removeControl(this.layersControl);
     }
+    */
 
     if (this.showScaleControl) {
       this.map.addControl(this.scaleControl);
@@ -273,6 +275,11 @@ export class MapComponent implements AfterViewInit, OnInit {
     });
 
     this.setBounds();
+  }
+
+  handleOverlayChange(overlays) {
+    this._overlays = overlays;
+    this.updateOverlays();
   }
 
 }

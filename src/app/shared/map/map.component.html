@@ -1,4 +1,13 @@
 <div #mapWrapper
     [class.noninteractive]="interactive === false"
     (mousemove)="$event.stopPropagation">
+
+
+    <div class="map-control">
+      <shared-map-control
+        *ngIf="showLayersControl && interactive === true"
+        [overlays]="_overlays"
+        (overlayChange)="handleOverlayChange($event)">
+      </shared-map-control>
+    </div>
 </div>
