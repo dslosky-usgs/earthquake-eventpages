@@ -63,36 +63,6 @@ describe('MapComponent', () => {
     });
   });
 
-  describe('setBounds', () => {
-    it('waits for map to be defined', () => {
-      component.map = null;
-      spyOn(component, 'getOverlayBounds');
-      component.setBounds();
-
-      expect(component.getOverlayBounds).not.toHaveBeenCalled();
-    });
-
-    it('uses overlay bounds', () => {
-      const bounds = [1, 2, 3];
-      spyOn(component, 'getOverlayBounds').and.returnValue(bounds);
-      spyOn(component.map, 'fitBounds').and.returnValue(null);
-
-      component.setBounds();
-      expect(component.getOverlayBounds).toHaveBeenCalled();
-      expect(component.map.fitBounds).toHaveBeenCalledWith(bounds);
-    });
-
-    it('defaults to world', () => {
-      spyOn(component, 'getOverlayBounds').and.returnValue(null);
-      spyOn(component.map, 'fitBounds').and.returnValue(null);
-
-      component.setBounds();
-      expect(component.getOverlayBounds).toHaveBeenCalled();
-      expect(component.map.fitBounds.calls.first().args[0]).toEqual(
-          [[85, 180], [-85, 180]]);
-    });
-  });
-
   describe('showLayersControl', () => {
     it('adds layers control to map when true', () => {
       component.showLayersControl = true;
