@@ -61,3 +61,6 @@ import 'zone.js/dist/zone'; // Included with Angular CLI.
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
+
+/* Polyfill for IE/Edge to use Web Components */
+import '@webcomponents/webcomponentsjs/webcomponents-bundle';
