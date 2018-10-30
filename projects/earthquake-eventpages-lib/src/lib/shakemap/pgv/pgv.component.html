@@ -1,0 +1,33 @@
+<ng-container *ngIf="eventService?.product$ | async; let shakemap">
+
+  <a *ngIf="shakemap?.contents['download/cont_pgv.json']; else noOverlay"
+      [routerLink]="'../../map'"
+      [queryParams]="{
+        'shakemap-code': shakemap?.code,
+        'shakemap-source': shakemap?.source,
+        'shakemap-pgv': true,
+        'shakemap-stations': true,
+        'shakemap-intensity': false
+      }">
+
+    <shared-map
+        [overlays]="shakemap | shakemapOverlays:['shakemap-pgv',
+        'shakemap-stations']"
+        [showScaleControl]="true"
+        [showAttributionControl]="false"
+        [bounds]="shakemap | sharedGetMapBounds">
+    </shared-map>
+  </a>
+
+  <ng-template #noOverlay>
+    <img
+        *ngIf="shakemap?.contents['download/pgv.jpg']; else noImage"
+        src="{{ shakemap?.contents['download/pgv.jpg'].url }}"
+        alt="ShakeMap peak ground velocity image">
+
+    <ng-template #noImage>
+      <h1>No PGV available for this event</h1>
+    </ng-template>
+  </ng-template>
+
+</ng-container>

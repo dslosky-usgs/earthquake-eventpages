@@ -1,0 +1,7 @@
+<header>
+  <ul *ngIf="event?.id">
+    <li [innerHTML]="event | eventDateTime"></li>
+    <li [innerHTML]="event | eventLocation"></li>
+    <li [innerHTML]="event | eventDepth"></li>
+  </ul>
+</header>

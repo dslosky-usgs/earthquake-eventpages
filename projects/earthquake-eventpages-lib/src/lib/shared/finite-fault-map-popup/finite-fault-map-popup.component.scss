@@ -1,0 +1,32 @@
+.ff-popup {
+  font-size: 14px;
+  width: 220px;
+}
+
+.ff-summary {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+
+  > li {
+    flex: 1 1 50%;
+    flex-direction: column;
+    padding: 1em 0.25em;
+    text-align: center;
+
+    &.ff-summary-slip {
+      flex-basis: 100%;
+      border-radius: 3px;
+      margin-bottom: 1em;
+    }
+
+    > abbr {
+      display: block;
+      color: #666;
+      cursor: help;
+      font-size: 0.88em;
+    }
+  }
+}

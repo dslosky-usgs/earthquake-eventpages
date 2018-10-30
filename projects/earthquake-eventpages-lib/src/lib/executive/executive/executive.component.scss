@@ -1,0 +1,30 @@
+.pins {
+  list-style: none;
+  margin: 0 0 1em 0;
+  overflow: hidden;
+  padding: 0;
+
+  &:after {
+    clear: left;
+    content: '';
+    display: block;
+  }
+
+  > li {
+    height: 21em;
+    margin: 1em auto 0;
+    width: 14em;
+  }
+}
+
+@media screen and (min-width: 33em) {
+
+  .pins {
+    margin: 0 0 1em -1em;
+
+    > li {
+      float: left;
+      margin: 1em 0 0 1em;
+    }
+  }
+}

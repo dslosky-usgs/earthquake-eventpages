@@ -117,9 +117,15 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["src/tsconfig.app.json", "src/tsconfig.spec.json"],
+            "tsConfig": [
+              "src/tsconfig.app.json",
+              "src/tsconfig.spec.json"
+            ],
             "tslintConfig": "tslint.json",
-            "exclude": ["**/node_modules/**", "**/polyfills.js"]
+            "exclude": [
+              "**/node_modules/**",
+              "**/polyfills.js"
+            ]
           }
         }
       }
@@ -139,9 +145,53 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["e2e/tsconfig.e2e.json"],
+            "tsConfig": [
+              "e2e/tsconfig.e2e.json"
+            ],
             "tslintConfig": "tslint.json",
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "earthquake-eventpages-lib": {
+      "root": "projects/earthquake-eventpages-lib",
+      "sourceRoot": "projects/earthquake-eventpages-lib/src",
+      "projectType": "library",
+      "prefix": "eep",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/earthquake-eventpages-lib/tsconfig.lib.json",
+            "project": "projects/earthquake-eventpages-lib/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "project": "projects/earthquake-eventpages-lib/ng-package.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/earthquake-eventpages-lib/src/test.ts",
+            "tsConfig": "projects/earthquake-eventpages-lib/tsconfig.spec.json",
+            "karmaConfig": "projects/earthquake-eventpages-lib/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/earthquake-eventpages-lib/tsconfig.lib.json",
+              "projects/earthquake-eventpages-lib/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }

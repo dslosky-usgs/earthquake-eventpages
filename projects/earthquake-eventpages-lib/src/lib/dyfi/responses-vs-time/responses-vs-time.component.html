@@ -1,0 +1,38 @@
+<ng-container *ngIf="dyfiSeries as series; else noData">
+  <h2>Responses vs. Time Plot</h2>
+  <div class="chart-container">
+    <bubble-line-chart-component
+        [scheme]="colorScheme"
+        [results]="series.series"
+        [lineChart]="series.series"
+        [gradient]="gradient"
+        [xAxis]="showXAxis"
+        [yAxis]="showYAxis"
+        [legend]="showLegend"
+        [scaleType]="scaleType"
+        [showXAxisLabel]="showXAxisLabel"
+        [showYAxisLabel]="showYAxisLabel"
+        [xAxisLabel]="xAxisLabel"
+        [xScaleMax] = "xScaleMax"
+        [xAxisTicks]="xAxisTicks"
+        [yAxisLabel]="yAxisLabel"
+        [autoScale]="autoScale">
+    </bubble-line-chart-component>
+  </div>
+</ng-container>
+
+<ng-template #noData>
+  <ng-container 
+      *ngIf="product | sharedProductContent:product.code + '_plot_numresp.jpg'
+      as image;
+      else noImage">
+    <img
+      *ngIf="image.url; else noImage"
+      src="{{ image.url }}"
+      alt="DYFI responses vs. time plot">
+  </ng-container>
+
+  <ng-template #noImage>
+    <h1>Not available for this event</h1>
+  </ng-template>
+</ng-template>

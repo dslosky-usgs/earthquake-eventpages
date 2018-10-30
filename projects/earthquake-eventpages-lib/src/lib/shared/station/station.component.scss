@@ -1,0 +1,47 @@
+:host {
+  display: block;
+  font-size: 17px;
+  max-width: 800px;
+}
+
+.details {
+  margin: 1em 0 1.5em;
+}
+
+.flag {
+  display: block;
+  margin-left: 8px;
+}
+
+.station-table.mat-table {
+  min-width: 675px;
+}
+
+.summary {
+  align-items: center;
+  display: flex;
+  flex: 1 1 50%;
+  flex-wrap: wrap;
+  font-size: 0.88em;
+  margin: 20px 0 20px 0;
+
+  .summary-item {
+    align-items: center;
+    display: flex;
+    flex: 1 1 50%;
+    flex-direction: column;
+    padding: 0.5em;
+    text-align: center;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .summary {
+    flex: 1;
+    flex-wrap: none;
+  }
+  .summary > .summary-item {
+    flex: 1;
+    padding: 0;
+  }
+}

@@ -1,0 +1,31 @@
+
+.dyfi-responses-badge {
+  display: flex;
+  justify-content: center;
+}
+
+.responses-digit {
+  border: 1px solid #ccc;
+  border-right: none;
+  display: inline-block;
+  padding: 0.5em;
+
+  &.empty-digit {
+    background: rgba(0,0,0,0.05);
+    color: #999;
+  }
+
+  &:first-child {
+    border-bottom-left-radius: 2px;
+    border-top-left-radius: 2px;
+  }
+
+  &:last-child {
+    background: #fff;
+    border-bottom-right-radius: 2px;
+    border-top-right-radius: 2px;
+    border-right: 1px solid #ccc;
+    color: #333;
+  }
+}
+

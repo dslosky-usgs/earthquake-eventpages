@@ -1,0 +1,328 @@
+<div *ngIf="smProcessing">
+  <mat-expansion-panel [expanded]="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Ground Motion/Intensity Information
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <ng-template matExpansionPanelContent>
+      <div class="horizontal-scrolling">
+        <mat-table [dataSource]="smProcessing?.ground_motion_modules"
+          class="ground-motion-intensity">
+          <mat-header-row *matHeaderRowDef="headers?.groundMotionModules">
+          </mat-header-row>
+          <mat-row *matRowDef="let myRowData;
+                    columns: headers?.groundMotionModules">
+          </mat-row>
+
+          <ng-container matColumnDef="type">
+            <mat-header-cell *matHeaderCellDef>
+              Type
+            </mat-header-cell>
+            <mat-cell [attr.role]="'rowheader'"
+              [class.mat-cell]="false"
+              class="mat-header-cell"
+              *matCellDef="let module">
+
+              <ng-container *ngIf="names?.ground_motion_modules[module.type]
+                        as name; else noName">
+                <ng-container *ngIf="abbreviations[module.type] as abbr;
+                          else noAbbr">
+
+                  <abbr title="{{ abbr }}">{{ name }}</abbr>
+                </ng-container>
+
+                <ng-template #noAbbr>
+                  {{ name }}
+                </ng-template>
+              </ng-container>
+
+              <ng-template #noName>
+                {{ module.type }}
+              </ng-template>
+
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="module">
+            <mat-header-cell *matHeaderCellDef>
+              Module
+            </mat-header-cell>
+            <mat-cell *matCellDef="let module">
+              {{ module.module }}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="reference">
+            <mat-header-cell *matHeaderCellDef>
+              Reference
+            </mat-header-cell>
+            <mat-cell *matCellDef="let module">
+              {{ module.reference }}
+            </mat-cell>
+          </ng-container>
+
+        </mat-table>
+      </div>
+
+    </ng-template>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Miscellaneous
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <ng-template matExpansionPanelContent>
+      <dl *ngIf="smProcessing?.miscellaneous as miscellaneous"
+        class="description-table">
+
+        <dt>Max magnitude to compute bias</dt>
+        <dd *ngIf="miscellaneous?.bias_max_mag as biasMaxMag;
+            else missingData">
+          {{ biasMaxMag }}
+        </dd>
+
+        <dt>Maximum distance to include station in bias</dt>
+        <dd *ngIf="miscellaneous?.bias_max_range as biasMaxRange;
+            else missingData">
+          {{ biasMaxRange }}
+        </dd>
+
+        <dt>Use log amp to compute bias</dt>
+        <dd *ngIf="miscellaneous?.bias_log_amp as biasLogAmp;
+            else missingData">
+          {{ biasLogAmp }}
+        </dd>
+
+        <dt>Max allowed bias</dt>
+        <dd *ngIf="miscellaneous?.bias_max_bias as biasMaxBias;
+            else missingData">
+          {{ biasMaxBias }}
+        </dd>
+
+        <dt>Use log amp to compute bias</dt>
+        <dd *ngIf="miscellaneous?.bias_min_bias as biasMinBias;
+            else missingData">
+          {{ biasMinBias }}
+        </dd>
+
+        <dt>Min # of stations necessary to compute bias</dt>
+        <dd *ngIf="miscellaneous?.bias_min_stations as biasMinStations;
+            else missingData">
+          {{ biasMinStations }}
+        </dd>
+
+        <dt>Norm of the bias</dt>
+        <dd *ngIf="miscellaneous?.bias_norm as biasNorm;
+            else missingData">
+          {{ biasNorm }}
+        </dd>
+
+        <dt>Median distance used</dt>
+        <dd *ngIf="miscellaneous?.median_dist as medDist;
+            else missingData">
+          {{ medDist }}
+        </dd>
+
+        <dt>Outlier level (# of std dev)</dt>
+        <dd *ngIf="miscellaneous?.outlier_deviation_level as devLevel;
+            else missingData">
+          {{ devLevel }}
+        </dd>
+
+        <dt>Max magnitude to flag outliers</dt>
+        <dd *ngIf="miscellaneous?.outlier_max_mag as maxMag;
+            else missingData">
+          {{ maxMag }}
+        </dd>
+
+      </dl>
+    </ng-template>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        ShakeMap Versions
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <ng-template matExpansionPanelContent>
+
+      <dl *ngIf="smProcessing?.shakemap_versions as versions"
+        class="description-table">
+
+        <dt>Code</dt>
+        <dd *ngIf="versions?.shakemap_revision as smRev;
+            else missingData">
+          {{ smRev }}
+        </dd>
+
+        <dt>Github commit</dt>
+        <dd *ngIf="versions?.shakemap_revision_id as smRevId;
+            else missingData">
+          {{ smRevId }}
+        </dd>
+
+        <dt>Map version</dt>
+        <dd *ngIf="versions?.map_version as version;
+            else missingData">
+          {{ version }}
+        </dd>
+
+        <dt>Date</dt>
+        <dd *ngIf="versions?.process_time as time;
+            else missingData">
+          {{ time | sharedDateTime }}
+        </dd>
+
+      </dl>
+    </ng-template>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel *ngIf="smProcessing?.shakemap_versions?.map_data_history as history">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Version History
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <ng-template matExpansionPanelContent>
+      <div class="horizontal-scrolling">
+        <mat-table [dataSource]="history">
+          <mat-header-row *matHeaderRowDef="headers?.history"></mat-header-row>
+          <mat-row *matRowDef="let myRowData; columns: headers?.history"></mat-row>
+
+          <ng-container matColumnDef="version">
+            <mat-header-cell *matHeaderCellDef>
+              Map Version
+            </mat-header-cell>
+            <mat-cell [attr.role]="'rowheader'"
+              [class.mat-cell]="false"
+              class="mat-header-cell"
+              *matCellDef="let version">
+              {{ version[2] }}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="network">
+            <mat-header-cell *matHeaderCellDef>
+              Network
+            </mat-header-cell>
+            <mat-cell *matCellDef="let version">
+              {{ version[1] }}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="time">
+            <mat-header-cell *matHeaderCellDef>
+              Processing Time
+            </mat-header-cell>
+            <mat-cell *matCellDef="let version">
+              {{ version[0] | sharedDateTime }}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="comment">
+            <mat-header-cell *matHeaderCellDef>
+              Comment
+            </mat-header-cell>
+            <mat-cell *matCellDef="let version">
+              {{ version[3] }}
+            </mat-cell>
+          </ng-container>
+
+        </mat-table>
+      </div>
+
+    </ng-template>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Site Response
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <ng-template matExpansionPanelContent>
+
+      <dl *ngIf="smProcessing?.site_response as siteResp"
+        class="description-table">
+        <dt>Reference rock Vs30</dt>
+        <dd *ngIf="siteResp?.vs30default as vs30;
+              else missingData">
+          {{ vs30 }}
+        </dd>
+
+        <dt>Site correction applied</dt>
+        <dd *ngIf="siteResp?.site_correction as site;
+              else missingData">
+          {{ site }}
+        </dd>
+      </dl>
+
+    </ng-template>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel *ngIf="smProcessing.roi as roi">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        ROI
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <ng-template matExpansionPanelContent>
+      <div class="horizontal-scrolling">
+        <mat-table [dataSource]="roi"
+          class="roi-table">
+          <mat-header-row *matHeaderRowDef="headers?.roi"></mat-header-row>
+          <mat-row *matRowDef="let myRowData; columns: headers?.roi"></mat-row>
+
+          <ng-container matColumnDef="type">
+            <mat-header-cell *matHeaderCellDef>
+              Type
+            </mat-header-cell>
+            <mat-cell [attr.role]="'rowheader'"
+              [class.mat-cell]="false"
+              class="mat-header-cell"
+              *matCellDef="let roi">
+
+              {{ names.roi[roi.type] ?
+              names.roi[roi.type] : roi.type }}
+
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="roi">
+            <mat-header-cell *matHeaderCellDef>
+              ROI
+            </mat-header-cell>
+            <mat-cell *matCellDef="let roi">
+              {{ roi.roi }}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="observation_decay">
+            <mat-header-cell *matHeaderCellDef>
+              Observation Decay
+            </mat-header-cell>
+            <mat-cell *matCellDef="let roi">
+              {{ roi.decay }}
+            </mat-cell>
+          </ng-container>
+
+        </mat-table>
+      </div>
+
+    </ng-template>
+  </mat-expansion-panel>
+
+  <ng-template #missingData>
+    <dd>{{ formatter.empty }}</dd>
+  </ng-template>
+</div>

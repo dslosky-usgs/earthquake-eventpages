@@ -1,0 +1,178 @@
+<div *ngIf="smOutput">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Ground Motion/Intensity Information
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <ng-template matExpansionPanelContent>
+
+      <div class="horizontal-scrolling">
+        <mat-table class="ground-motion-intensity"
+          [dataSource]="smOutput?.ground_motions">
+          <mat-header-row *matHeaderRowDef="headers?.groundMotions">
+          </mat-header-row>
+          <mat-row *matRowDef="let myRowData;
+                    columns: headers?.groundMotions">
+          </mat-row>
+
+          <ng-container matColumnDef="type">
+            <mat-header-cell *matHeaderCellDef>
+              Type
+            </mat-header-cell>
+            <mat-cell [attr.role]="'rowheader'"
+              [class.mat-cell]="false"
+              class="mat-header-cell"
+              *matCellDef="let groundMotion">
+
+              <ng-container *ngIf="names?.groundMotions[groundMotion.type]
+                        as name; else noName">
+                <ng-container *ngIf="abbreviations[groundMotion.type] as abbr;
+                        else noAbbr">
+
+                  <abbr title="{{ abbr }}">{{ name }}</abbr>
+                </ng-container>
+
+                <ng-template #noAbbr>
+                  {{ name }}
+                </ng-template>
+              </ng-container>
+
+              <ng-template #noName>
+                {{ groundMotion.type }}
+              </ng-template>
+
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="max">
+            <mat-header-cell *matHeaderCellDef>
+              Max Value in Grid
+            </mat-header-cell>
+            <mat-cell *matCellDef="let groundMotion">
+              {{ groundMotion.max_grid | sharedNumber:null:groundMotion.units
+              }}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="max_on_land">
+            <mat-header-cell *matHeaderCellDef>
+              Max Value on Land
+            </mat-header-cell>
+            <mat-cell *matCellDef="let groundMotion">
+              {{ groundMotion.max | sharedNumber:null:groundMotion.units }}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="bias">
+            <mat-header-cell *matHeaderCellDef>
+              Bias
+            </mat-header-cell>
+            <mat-cell *matCellDef="let groundMotion">
+              {{ groundMotion.bias | sharedNumber }}
+            </mat-cell>
+          </ng-container>
+
+        </mat-table>
+      </div>
+
+    </ng-template>
+  </mat-expansion-panel>
+
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Map Information
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <ng-template matExpansionPanelContent>
+      <div class="horizontal-scrolling">
+        <mat-table class="map-information"
+          [dataSource]="smOutput?.map_information">
+          <mat-header-row *matHeaderRowDef="headers?.mapInformation">
+          </mat-header-row>
+          <mat-row *matRowDef="let myRowData;
+                    columns: headers?.mapInformation">
+          </mat-row>
+
+          <ng-container matColumnDef="type">
+            <mat-header-cell *matHeaderCellDef>
+              Type
+            </mat-header-cell>
+            <mat-cell [attr.role]="'rowheader'"
+              [class.mat-cell]="false"
+              class="mat-header-cell"
+              *matCellDef="let mapInfo">
+              {{ names?.mapInformation[mapInfo.type] }}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="lat">
+            <mat-header-cell *matHeaderCellDef>
+              Latitude
+            </mat-header-cell>
+            <mat-cell *matCellDef="let mapInfo">
+              {{ mapInfo?.latitude | sharedNumber:null:mapInfo.units }}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="lon">
+            <mat-header-cell *matHeaderCellDef>
+              Longitude
+            </mat-header-cell>
+            <mat-cell *matCellDef="let mapInfo">
+              {{ mapInfo?.longitude | sharedNumber:null:mapInfo.units }}
+            </mat-cell>
+          </ng-container>
+
+        </mat-table>
+      </div>
+
+    </ng-template>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Uncertainty
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <ng-template matExpansionPanelContent>
+      <dl class="description-table"
+        *ngIf="smOutput?.uncertainty
+          as uncertainty">
+
+        <dt>Mean of map uncertainty</dt>
+        <dd *ngIf="uncertainty?.mean_uncertainty_ratio as ratio;
+            else missingData">
+          {{ ratio | sharedNumber }}
+        </dd>
+
+        <dt>Empirical ShakeMap grade</dt>
+        <dd *ngIf="uncertainty?.grade as grade; else missingData">
+          {{ grade }}
+        </dd>
+
+        <dt>Flagged Seismic Stations</dt>
+        <dd *ngIf="uncertainty?.total_flagged_mi as miFlag; else missingData">
+          {{ miFlag }}
+        </dd>
+
+        <dt>Flagged DYFI stations</dt>
+        <dd *ngIf="uncertainty?.total_flagged_pgm as pgmFlag; else missingData">
+          {{ pgmFlag }}
+        </dd>
+
+      </dl>
+    </ng-template>
+  </mat-expansion-panel>
+
+  <ng-template #missingData>
+    <dd>{{ formatter.empty }}</dd>
+  </ng-template>
+
+</div>

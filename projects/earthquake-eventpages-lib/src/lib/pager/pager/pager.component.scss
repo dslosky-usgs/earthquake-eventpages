@@ -1,0 +1,25 @@
+.losspager-product-page {
+  figure {
+    margin: 1em 0;
+  }
+
+  mat-table {
+    .mat-column-mmi,
+    .mat-column-population {
+      flex-grow: 0;
+      flex-shrink: 0;
+    }
+
+    .mat-column-mmi {
+      flex-basis: 100px;
+    }
+
+    .mat-column-population {
+      flex: 0.5;
+    }
+  }
+
+  .mmi {
+    width: 60px;
+  }
+}

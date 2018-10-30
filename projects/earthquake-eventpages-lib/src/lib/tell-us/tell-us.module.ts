@@ -1,0 +1,59 @@
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import {
+  MatButtonModule,
+  MatCheckboxModule,
+  MatDialogModule,
+  MatExpansionModule,
+  MatFormFieldModule,
+  MatListModule,
+  MatSelectModule,
+  MatRadioModule,
+  MatInputModule
+} from '@angular/material';
+
+import { SharedModule } from '@shared/shared.module';
+import { FieldsetComponent } from './fieldset/fieldset.component';
+import { FormComponent } from './form/form.component';
+import { FormLanguageService } from './form-language.service';
+import { LocationComponent } from './location/location.component';
+import { PrivacyStatementComponent } from './privacy-statement/privacy-statement.component';
+import { QuestionComponent } from './question/question.component';
+import { SuccessViewComponent } from './success-view/success-view.component';
+import { TellUsComponent } from './tell-us/tell-us.component';
+import { TellUsRoutingModule } from './tell-us-routing.module';
+import { LocationViewModule } from 'hazdev-ng-location-view';
+
+@NgModule({
+  declarations: [
+    FieldsetComponent,
+    FormComponent,
+    LocationComponent,
+    QuestionComponent,
+    SuccessViewComponent,
+    TellUsComponent,
+    PrivacyStatementComponent
+  ],
+  entryComponents: [FormComponent],
+  exports: [FormComponent, TellUsComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    LocationViewModule.forRoot(),
+    MatButtonModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    MatExpansionModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatListModule,
+    MatRadioModule,
+    MatSelectModule,
+    SharedModule,
+    // routing module is always last
+    TellUsRoutingModule
+  ],
+  providers: [FormLanguageService]
+})
+export class TellUsModule {}

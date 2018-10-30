@@ -1,0 +1,29 @@
+<basic-pin
+    [link]="link"
+    [product]="product">
+  <div card-title>
+    <a [routerLink]="link">{{ title }}</a>
+    <shared-mmi
+        [bubble]="true"
+        [intensity]="product | sharedProductProperty:'maxmmi' |
+            sharedNumber:0:0">
+    </shared-mmi>
+  </div>
+
+  <figure
+      *ngIf="product | sharedProductContent:
+      'download/pin-thumbnail.png':'download/intensity.jpg' as image;
+      else noImage">
+    <img src="{{ image.url }}" alt="ShakeMap Intensity Thumbnail" />
+    <figcaption>
+      Estimated Intensity Map
+    </figcaption>
+  </figure>
+
+  <ng-template #noImage>
+    <p class="alert error">
+      ShakeMap not available
+    </p>
+  </ng-template>
+
+</basic-pin>

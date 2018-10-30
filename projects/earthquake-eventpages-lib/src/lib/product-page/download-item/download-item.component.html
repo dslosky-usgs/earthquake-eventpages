@@ -1,0 +1,12 @@
+<ng-container *ngIf="item">
+  <span class="title">{{ item.title }}</span>
+  <span class="caption">{{ item.caption }}</span>
+  <ul class="formats">
+    <li *ngFor="let format of item.formats;trackBy: trackByIndex">
+      <a href="{{ format.url }}">
+        {{ format.href | fileExtension | uppercase }}
+        {{ format.length | fileSize }}
+      </a>
+    </li>
+  </ul>
+</ng-container>

@@ -1,0 +1,33 @@
+<basic-pin [href]="link" [title]="title" [footer]="footer">
+  <dl>
+    <dt>Time Range</dt>
+    <dd>
+      <figure>
+        <img src="assets/time.png" alt="Time range image" />
+        <figcaption>
+          &plusmn; Three Weeks
+        </figcaption>
+      </figure>
+    </dd>
+
+    <dt>Search Radius</dt>
+    <dd>
+      <figure>
+        <img src="assets/radius.png" alt="Search radius image" />
+        <figcaption>
+          250.0 km
+        </figcaption>
+      </figure>
+    </dd>
+
+    <dt>Magnitude Range</dt>
+    <dd>
+      <figure>
+        <img src="assets/magnitude.png" alt="Magnitude Range" />
+        <figcaption>
+          &ge; {{ minimumMag | sharedNumber:1 }}
+        </figcaption>
+      </figure>
+    </dd>
+  </dl>
+</basic-pin>

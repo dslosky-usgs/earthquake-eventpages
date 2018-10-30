@@ -1,0 +1,59 @@
+<ng-container *ngIf="bubbleSeries && lineSeries; else noData">
+  <h2>Intensity vs. Distance</h2>
+  <div class="chart-container">
+    <bubble-line-chart-component
+        [scheme]="colorScheme"
+        [colorSchemeLine]="colorScheme"
+        [customColors]="customColors"
+        [results]="allResults"
+        [animations]="animations"
+        [lineChart]="lineSeries"
+        [lineChartTooltip]="false"
+        [bubbleChart]="bubbleSeries"
+        [tooltipDisabled]="false"
+        [gradient]="gradient"
+        [xAxis]="showXAxis"
+        [yAxis]="showYAxis"
+        [yScaleMin]="1"
+        [yScaleMax]="10"
+        [legend]="showLegend"
+        [scaleType]="scaleType"
+        [showGridLines]="true"
+        [showXAxisLabel]="showXAxisLabel"
+        [showYAxisLabel]="showYAxisLabel"
+        [xAxisLabel]="xAxisLabel"
+        [xAxisTicks]="xAxisTicks"
+        [xScaleMax]="xScaleMax"
+        [xScaleMin]="xScaleMin"
+        [yAxisLabel]="yAxisLabel"
+        [bubbleTooltipTemplate]="meanTemplate">
+    </bubble-line-chart-component>
+  </div>
+</ng-container>
+
+<ng-template #noData>
+  <ng-container 
+      *ngIf="product | sharedProductContent:product.code + '_plot_atten.jpg'
+      as image;
+      else noImage">
+    <img
+      *ngIf="image.url; else noImage"
+      src="{{ image.url }}"
+      alt="DYFI intensity vs. distance plot">
+  </ng-container>
+
+  <ng-template #noImage>
+    <h1>Not available for this event</h1>
+  </ng-template>
+</ng-template>
+
+<ng-template #meanTemplate let-model="model">
+    <h3>{{ model.series }}</h3>
+    <dl class="description-table">
+      <dt>Intensity (mmi): </dt><dd>{{ model.value }}</dd>
+      <dt>Hypocentral Distance (km): </dt><dd>{{ model.x }}</dd>
+      <ng-container *ngIf="model?.nresp">
+        <dt>Number of Responses: </dt><dd>{{ model.nresp | sharedNumber }}</dd>
+      </ng-container>
+    </dl>
+  </ng-template>

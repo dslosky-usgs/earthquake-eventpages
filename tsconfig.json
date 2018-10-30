@@ -6,15 +6,26 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
-    "lib": ["es2017", "dom"],
+    "lib": [
+      "es2017",
+      "dom"
+    ],
     "outDir": "./dist/out-tsc",
     "paths": {
-      "@angular/*": ["../node_modules/@angular/*"],
-      "@core/*": ["./app/core/*"],
-      "@shared/*": ["./app/shared/*"]
+      "@angular/*": [
+        "../node_modules/@angular/*"
+      ],
+      "earthquake-eventpages-lib": [
+        "../dist/earthquake-eventpages-lib"
+      ],
+      "earthquake-eventpages-lib/*": [
+        "../dist/earthquake-eventpages-lib/*"
+      ]
     },
     "sourceMap": true,
     "target": "es5",
-    "typeRoots": ["node_modules/@types"]
+    "typeRoots": [
+      "node_modules/@types"
+    ]
   }
 }

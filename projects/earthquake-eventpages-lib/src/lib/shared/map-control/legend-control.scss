@@ -1,0 +1,45 @@
+.leaflet-control-legend {
+  @include leaflet-control();
+
+  > .leaflet-control-legend-show {
+    color: #888;
+    font-size: 20px;
+    height: 44px;
+    line-height: 44px;
+    text-align: center;
+    text-decoration: none;
+    width: 44px;
+  }
+}
+
+.leaflet-control-legend-visible > .leaflet-control-legend-show,
+.leaflet-control-legend > .leaflet-control-legend-hide,
+.legend-container {
+  display: none;
+}
+
+.leaflet-control-legend-hide {
+  float: right;
+}
+
+.legend-container img {
+  display: block;
+  width: 210px;
+}
+
+.leaflet-control-legend-visible {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 6px;
+
+  > .leaflet-control-legend-hide,
+  > .legend-container {
+    display: block;
+  }
+}
+
+.legend-container {
+  padding: 0;
+  list-style: none;
+}

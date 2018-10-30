@@ -1,0 +1,10 @@
+<basic-pin
+    [link]="link"
+    [product]="event | getProduct:'origin'"
+    [title]="title">
+
+  <shared-map
+    [overlays]="event | interactiveMapOverlays:null"
+    [showAttributionControl]="false">
+  </shared-map>
+</basic-pin>

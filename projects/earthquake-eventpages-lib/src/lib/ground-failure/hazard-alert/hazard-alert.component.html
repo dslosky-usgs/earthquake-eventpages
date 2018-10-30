@@ -1,0 +1,65 @@
+<h4>{{ title }}</h4>
+
+<figure>
+  <ground-failure-alert-bar [bins]="(type === 'landslide' ? landslideBins : liquefactionBins)"
+    [title]="title"
+    [units]="units"
+    [value]="value">
+  </ground-failure-alert-bar>
+
+  <figcaption [ngSwitch]="alert">
+    <!-- Landslides -->
+    <ng-container *ngIf="type === 'landslide'">
+      <ng-container *ngSwitchCase="'green'">
+        Little or no landsliding is expected, but some
+        landslides could have occurred in highly
+        susceptible areas.
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'yellow'">
+        Landslides triggered by this earthquake are
+        estimated to be limited in number and (or)
+        spatial extent.
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'orange'">
+        Landslides triggered by this earthquake are
+        estimated to be significant in number and (or)
+        spatial extent.
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'red'">
+        Landslides triggered by this earthquake are
+        estimated to be extensive in number and (or)
+        spatial extent.
+      </ng-container>
+    </ng-container>
+
+    <!-- Liquefaction -->
+    <ng-container *ngIf="type === 'liquefaction'">
+      <ng-container *ngSwitchCase="'green'">
+        Little or no liquefaction is expected, but some
+        liquefaction could have occurred in highly
+        susceptible areas.
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'yellow'">
+        Liquefaction triggered by this earthquake is
+        estimated to be limited in severity and (or)
+        spatial extent.
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'orange'">
+        Liquefaction triggered by this earthquake is
+        estimated to be significant in severity and (or)
+        spatial extent.
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'red'">
+        Liquefaction triggered by this earthquake is
+        estimated to be extensive in severity and (or)
+        spatial extent.
+      </ng-container>
+    </ng-container>
+  </figcaption>
+</figure>
