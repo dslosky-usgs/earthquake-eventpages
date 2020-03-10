@@ -16,7 +16,7 @@ import { EventService } from '@core/event.service';
 export class IntensityComponent {
   contourOverlays = ['shakemap-mmi-contours','shakemap-stations'];
   formats = ['png', 'jpg', 'pdf'];
-  imageOverlays = ['shakemap-intensity','shakemap-stations'];
+  imageOverlays = ['shakemap-coverage','shakemap-stations'];
   overlays = this.imageOverlays;
 
   constructor(public eventService: EventService) {}
