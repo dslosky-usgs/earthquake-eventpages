@@ -26,6 +26,7 @@ const AsynchronousCovJSONOverlay = L.LayerGroup.extend({
   // retain url grab errors
   error: Error,
   id: 'async-covjson',
+  layer: null,
   legends: [],
   // retain  for custom layer adjustments
   map: null,
@@ -37,18 +38,21 @@ const AsynchronousCovJSONOverlay = L.LayerGroup.extend({
    * Init function
    */
   initialize: function() {
-    // for content downloads in async map layers; added to layer during
-    // initialization, or manually
-    this.httpClient = null;
-
     L.LayerGroup.prototype.initialize.call(this, []);
+
   },
 
   /**
-   * Runs after the geoJSON data is successfully added
+   * Runs after the data is successfully added
    */
   afterAdd: function() {
-    // subclasses should override this method
+    this.map.on('click', (e) => {
+      new C.DraggableValuePopup({
+        layers: [this.layer]
+      })
+        .setLatLng(e.latlng)
+        .openOn(this.map);
+    });
   },
 
   /**
@@ -86,12 +90,16 @@ const AsynchronousCovJSONOverlay = L.LayerGroup.extend({
       const MMI = cov.parameters.get('MMI');
 
       const layer = C.dataLayer(cov, {
+        opacity: .4,
         palette: C.paletteFromObject(MMI.preferredPalette),
         paletteExtent: MMI.preferredPalette.extent,
         parameter: 'MMI'
       });
 
       this.addLayer(layer);
+      this.setZIndex(10);
+
+      this.layer = layer;
     });
     /*.catch(error => {
       this.handleError(error);
@@ -102,7 +110,7 @@ const AsynchronousCovJSONOverlay = L.LayerGroup.extend({
   },
 
   /**
-   * Get geoJSON data and add it to the existing layer
+   * Get CovJSON data and add it to the existing layer
    */
   onAdd: function(map) {
     this.map = map;

@@ -40,8 +40,8 @@ const ShakemapCovJSONOverlay = AsynchronousCovJSONOverlay.extend({
       return null;
     }
 
-    return product.contents['download/coverage_mmi_low_res.covjson']
-      ? product.contents['download/coverage_mmi_low_res.covjson'].url
+    return product.contents['download/coverage_mmi_medium_res.covjson']
+      ? product.contents['download/coverage_mmi_medium_res.covjson'].url
       : null;
   },
 });
