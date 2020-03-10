@@ -41,6 +41,7 @@ const AsynchronousCovJSONOverlay = L.LayerGroup.extend({
     // initialization, or manually
     this.httpClient = null;
 
+    L.LayerGroup.prototype.initialize.call(this, []);
   },
 
   /**
@@ -86,7 +87,7 @@ const AsynchronousCovJSONOverlay = L.LayerGroup.extend({
 
       const layer = C.dataLayer(cov, {
         palette: C.paletteFromObject(MMI.preferredPalette),
-        paletteExtent: MMI.preferredPalette,
+        paletteExtent: MMI.preferredPalette.extent,
         parameter: 'MMI'
       });
 
