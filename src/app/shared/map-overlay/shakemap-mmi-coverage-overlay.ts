@@ -6,7 +6,7 @@ import * as L from 'leaflet';
  * Shakemap contours overlay for leaflet map
  */
 // tslint:disable-next-line:variable-name
-const ShakemapCovJSONOverlay = AsynchronousCovJSONOverlay.extend({
+const ShakemapMmiCoverageJSON = AsynchronousCovJSONOverlay.extend({
   id: 'shakemap-coverage',
   legends: [],
   title: 'Shakemap Coverage',
@@ -40,10 +40,10 @@ const ShakemapCovJSONOverlay = AsynchronousCovJSONOverlay.extend({
       return null;
     }
 
-    return product.contents['download/coverage_mmi_medium_res.covjson']
-      ? product.contents['download/coverage_mmi_medium_res.covjson'].url
+    return product.contents['download/coverage_mmi_low_res.covjson']
+      ? product.contents['download/coverage_mmi_low_res.covjson'].url
       : null;
   },
 });
 
-export { ShakemapCovJSONOverlay };
+export { ShakemapMmiCoverageJSON };

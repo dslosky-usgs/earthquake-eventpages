@@ -1,7 +1,6 @@
 import * as CovJSON from 'covjson-reader';
 import * as L from 'leaflet';
 import * as C from 'leaflet-coverage';
-import { of } from 'rxjs';
 /**
  * Class for asynchronous overlays used with the shared-map component.
  *
@@ -30,6 +29,7 @@ const AsynchronousCovJSONOverlay = L.LayerGroup.extend({
   legends: [],
   // retain  for custom layer adjustments
   map: null,
+  popup: null,
   title: 'Async CovJSON',
   // url to download geoJSON
   url: null,
@@ -37,22 +37,47 @@ const AsynchronousCovJSONOverlay = L.LayerGroup.extend({
   /**
    * Init function
    */
-  initialize: function() {
+  initialize: function () {
     L.LayerGroup.prototype.initialize.call(this, []);
 
+  },
+
+  addData: function (coverage) {
+    this.data = coverage;
+    const MMI = coverage.parameters.get('MMI');
+
+    const layer = C.dataLayer(coverage, {
+      opacity: .4,
+      palette: C.paletteFromObject(MMI.preferredPalette),
+      paletteExtent: MMI.preferredPalette.extent,
+      parameter: 'MMI'
+    });
+
+    this.addLayer(layer);
+    this.setZIndex(10);
+
+    this.layer = layer;
+    this.afterAdd();
   },
 
   /**
    * Runs after the data is successfully added
    */
-  afterAdd: function() {
-    this.map.on('click', (e) => {
-      new C.DraggableValuePopup({
-        layers: [this.layer]
-      })
-        .setLatLng(e.latlng)
-        .openOn(this.map);
-    });
+  afterAdd: function () {
+    if (this.map) {
+      this.map.on('click', this.onClick, this);
+    }
+  },
+
+  /**
+   * Remove click event listener and draggable popup
+   */
+  afterRemove: function () {
+    this.map.off('click', this.onClick, this);
+
+    if (this.popup) {
+      this.popup.remove();
+    }
   },
 
   /**
@@ -63,16 +88,15 @@ const AsynchronousCovJSONOverlay = L.LayerGroup.extend({
    * @return {Observable}
    *    For caught errors during http requests
    */
-  handleError: function(error: any) {
+  handleError: function (error: any) {
     this.error = error;
     this.data = null;
-    return of(null);
   },
 
   /**
    * Fetch data, and ensure it is parsed into geojson
    */
-  loadData: function() {
+  loadData: function () {
     if (!this.url) {
       this.data = null;
       return;
@@ -82,43 +106,50 @@ const AsynchronousCovJSONOverlay = L.LayerGroup.extend({
       return;
     }
 
-    // flag that data is being loaded
-    this.data = 'loading';
-    this.layers = [];
-    CovJSON.read(this.url).then(cov => {
-      this.data = cov;
-      const MMI = cov.parameters.get('MMI');
-
-      const layer = C.dataLayer(cov, {
-        opacity: .4,
-        palette: C.paletteFromObject(MMI.preferredPalette),
-        paletteExtent: MMI.preferredPalette.extent,
-        parameter: 'MMI'
-      });
-
-      this.addLayer(layer);
-      this.setZIndex(10);
-
-      this.layer = layer;
-    });
-    /*.catch(error => {
+    CovJSON.read(this.url).then(coverage => {
+      this.addCoverage(coverage);
+    }).catch(error => {
       this.handleError(error);
     });
-*/
 
-    this.afterAdd();
   },
 
   /**
    * Get CovJSON data and add it to the existing layer
    */
-  onAdd: function(map) {
-    this.map = map;
-    L.LayerGroup.prototype.onAdd.call(this, map);
+  onAdd: function (map) {
+    if (map) {
+      this.map = map;
+      L.LayerGroup.prototype.onAdd.call(this, map);
 
-    this.loadData();
-    this.afterAdd();
-  }
+      this.loadData();
+      this.afterAdd();
+    }
+  },
+
+  /**
+   * Takes click event and adds a DraggablleValuePopup from the coverage
+   * library to the map
+   * @param e
+   *    Click event
+   */
+  onClick: function (e) {
+    this.popup = new C.DraggableValuePopup({
+      layers: [this.layer]
+    })
+      .setLatLng(e.latlng)
+      .openOn(this.map);
+  },
+
+  /**
+   * Remove Coverage layer, event listener, and popup from map
+   */
+  onRemove: function () {
+    L.LayerGroup.prototype.onRemove.call(this, this.map);
+
+    this.afterRemove();
+  },
 });
+
 
 export { AsynchronousCovJSONOverlay };

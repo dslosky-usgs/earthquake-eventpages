@@ -11,7 +11,7 @@ import { ShakemapPSA03Overlay } from './map-overlay/shakemap-psa03-overlay';
 import { ShakemapPSA10Overlay } from './map-overlay/shakemap-psa10-overlay';
 import { ShakemapPSA30Overlay } from './map-overlay/shakemap-psa30-overlay';
 import { ShakemapStationsOverlay } from './map-overlay/shakemap-stations-overlay';
-import { ShakemapCovJSONOverlay } from './map-overlay/shakemap-covjson-overlay';
+import { ShakemapMmiCoverageJSON } from './map-overlay/shakemap-mmi-coverage-overlay';
 
 @Pipe({
   name: 'shakemapOverlays'
@@ -40,7 +40,7 @@ export class ShakemapOverlaysPipe implements PipeTransform {
       overlays.push(new ShakemapPSA10Overlay(product));
       overlays.push(new ShakemapPSA30Overlay(product));
       overlays.push(new ShakemapStationsOverlay(product));
-      overlays.push(new ShakemapCovJSONOverlay(product));
+      overlays.push(new ShakemapMmiCoverageJSON(product));
 
       overlays.forEach(overlay => {
         overlay.enabled = enabled.indexOf(overlay.id) > -1;
