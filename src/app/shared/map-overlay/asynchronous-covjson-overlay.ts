@@ -42,7 +42,7 @@ const AsynchronousCovJSONOverlay = L.LayerGroup.extend({
 
   },
 
-  addData: function (coverage) {
+  addCoverage: function (coverage) {
     this.data = coverage;
     const MMI = coverage.parameters.get('MMI');
 

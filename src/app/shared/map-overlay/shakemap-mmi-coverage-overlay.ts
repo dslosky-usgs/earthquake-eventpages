@@ -6,10 +6,10 @@ import * as L from 'leaflet';
  * Shakemap contours overlay for leaflet map
  */
 // tslint:disable-next-line:variable-name
-const ShakemapMmiCoverageJSON = AsynchronousCovJSONOverlay.extend({
-  id: 'shakemap-coverage',
+const ShakemapMmiCoverageOverlay = AsynchronousCovJSONOverlay.extend({
+  id: 'shakemap-mmi-coverage',
   legends: [],
-  title: 'Shakemap Coverage',
+  title: 'Shakemap MMI Coverage',
 
   /**
    * Build leaflet overlay
@@ -30,20 +30,20 @@ const ShakemapMmiCoverageJSON = AsynchronousCovJSONOverlay.extend({
   },
 
   /**
-   * Returns the cont_mi url from the product, if exists
+   * Returns the high res coverage url from the product, if exists
    *
    * @param product
    *     shakemap product
    */
   getUrl: function(product: any) {
-    if (product === null) {
+    if (!product || !product.contents) {
       return null;
     }
 
-    return product.contents['download/coverage_mmi_low_res.covjson']
-      ? product.contents['download/coverage_mmi_low_res.covjson'].url
+    return product.contents['download/coverage_mmi_high_res.covjson']
+      ? product.contents['download/coverage_mmi_high_res.covjson'].url
       : null;
   },
 });
 
-export { ShakemapMmiCoverageJSON };
+export { ShakemapMmiCoverageOverlay };
