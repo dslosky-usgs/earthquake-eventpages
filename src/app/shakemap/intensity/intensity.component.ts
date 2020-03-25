@@ -37,6 +37,14 @@ export class IntensityComponent implements OnInit, OnDestroy {
     }));
   }
 
+  /**
+   * Determines whether the default map layers should be coverage from
+   * updated shakemap versions or the image overlays which are used by
+   * older shakemap versions
+   *
+   * @param shakemap
+   *     shakemap product
+   */
   setDefaultOverlays (shakemap) {
     const pipe = new ProductContentPipe();
     if (pipe.transform(shakemap, 'download/coverage_mmi_high_res.covjson')) {

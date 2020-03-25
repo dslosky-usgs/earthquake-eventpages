@@ -6,6 +6,7 @@ import { _throw } from 'rxjs/observable/throw';
 
 import { AsynchronousCovJSONOverlay } from './asynchronous-covjson-overlay';
 
+
 describe('AsynchronousCovJSONOverlay', () => {
   let overlay;
 

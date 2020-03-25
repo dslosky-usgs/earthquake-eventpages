@@ -1,20 +1,10 @@
 import * as CovJSON from 'covjson-reader';
 import * as L from 'leaflet';
 import * as C from 'leaflet-coverage';
+
+
 /**
- * Class for asynchronous overlays used with the shared-map component.
- *
- * Notable methods subclasses may want to override:
- * - onEachFeature(feature: any, layer: L.Layer)
- *   called by leaflet's GeoJSON layer.
- *
- * - parse(json|string)
- *   parse returned data and return a GeoJSON Feature or FeatureCollection.
- *   default implementation converts strings to json
- *   if returned data is not already json
- *
- * - style(feature)
- *   called by leaflet's GeoJSON layer.
+ * Class for asynchronous coverage overlays used with the shared-map component.
  */
 // tslint:disable-next-line:variable-name
 const AsynchronousCovJSONOverlay = L.LayerGroup.extend({
@@ -42,6 +32,12 @@ const AsynchronousCovJSONOverlay = L.LayerGroup.extend({
 
   },
 
+  /**
+   * Adds a coverage layer to the LayerGroup
+   *
+   * @param coverage
+   *    Loaded coverage object from covjson-reader library
+   */
   addCoverage: function (coverage) {
     this.data = coverage;
     const MMI = coverage.parameters.get('MMI');
@@ -70,7 +66,8 @@ const AsynchronousCovJSONOverlay = L.LayerGroup.extend({
   },
 
   /**
-   * Remove click event listener and draggable popup
+   * Remove click event listener and draggable popup when layer is\
+   * removed from map
    */
   afterRemove: function () {
     this.map.off('click', this.onClick, this);
